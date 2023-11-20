@@ -15,9 +15,9 @@ const breedSchema = new Schema(
       type: String,
       required: true,
     },
-    userId: {
+    noteId: {
       type: Schema.Types.ObjectId,
-      ref: "SavedBreed",
+      ref: "Note",
     },
   },
   {
