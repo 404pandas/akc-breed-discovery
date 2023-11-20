@@ -4,6 +4,7 @@ const { User, Breed, Group, SavedBreed } = require("../models");
 // Breed seed
 // Group seed
 // Saved Breed seed
+// Note seed
 
 db.once("open", async () => {
   try {
@@ -11,6 +12,7 @@ db.once("open", async () => {
     await Group.deleteMany({});
     await SavedBreed.deleteMany({});
     await User.deleteMany({});
+    // await note
 
     // Create Users
     await User.create(userSeeds);
@@ -40,6 +42,8 @@ db.once("open", async () => {
         }
       );
     }
+
+    // Create saved notes and adds to breeds
   } catch (err) {
     console.log("An error occured:");
     console.error(err);

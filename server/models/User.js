@@ -1,6 +1,8 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
+// breed to user then controller w/ that
+
 const userSchema = new Schema(
   {
     username: {
@@ -18,7 +20,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    savedBreeds: [
+    breed: [
       {
         type: Schema.Types.ObjectId,
         ref: "savedBreeds",

@@ -6,11 +6,8 @@ const noteSchema = new Schema(
       type: String,
       required: true,
     },
-    breedId: {
-      type: Schema.Types.ObjectId,
-      ref: "Breed",
-    },
   },
+  // user
   {
     toJSON: {
       virtuals: true,
