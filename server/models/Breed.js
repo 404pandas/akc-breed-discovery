@@ -1,8 +1,11 @@
+// Here is an example Model using mongoose!
+
 const { Schema, model } = require("mongoose");
 
 const breedSchema = new Schema(
   {
     breedName: {
+      // Schema types available in Mongoose: String, Number, Date, Buffer, Boolean, Mixed, ObjectId, Array, Decimal128, Map, Schema, UUID, BigInt
       type: String,
       required: true,
     },
@@ -19,6 +22,7 @@ const breedSchema = new Schema(
       ref: "Note",
     },
   },
+
   {
     toJSON: {
       virtuals: true,

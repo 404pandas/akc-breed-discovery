@@ -1,3 +1,5 @@
+// When using Mongoose, don't forget to edit your config.js/connection.js to include mongoose!
+
 const mongoose = require("mongoose");
 
 mongoose.connect(
