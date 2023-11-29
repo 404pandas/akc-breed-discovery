@@ -11,15 +11,45 @@ const breedSchema = new Schema(
     },
     breedDescription: {
       type: String,
-      required: true,
     },
     yearAdded: {
+      type: Number,
+    },
+    keywords: {
+      type: Array,
+    },
+    height: {
+      type: Number,
+    },
+    weight: {
+      type: Number,
+    },
+    lifeExpectancy: {
+      type: Number,
+    },
+    coatType: {
+      type: Array,
+    },
+    coatLength: {
       type: String,
-      required: true,
+    },
+    colors: {
+      type: Array,
+    },
+    markings: {
+      type: Array,
     },
     noteId: {
       type: Schema.Types.ObjectId,
       ref: "Note",
+    },
+    groupId: {
+      type: Schema.Types.ObjectId,
+      ref: "Group",
+    },
+    groupNumber: {
+      type: Schema.Types.groupNumber,
+      ref: "Group",
     },
   },
 

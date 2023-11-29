@@ -23,7 +23,7 @@ const userSchema = new Schema(
     breed: [
       {
         type: Schema.Types.ObjectId,
-        ref: "savedBreeds",
+        ref: "Breed",
       },
     ],
   },

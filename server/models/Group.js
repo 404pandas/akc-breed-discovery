@@ -6,6 +6,10 @@ const groupSchema = new Schema(
       type: String,
       required: true,
     },
+    groupNumber: {
+      type: Number,
+      required: true,
+    },
     details: {
       type: String,
       required: true,
