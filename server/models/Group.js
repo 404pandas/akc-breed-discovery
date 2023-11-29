@@ -10,10 +10,6 @@ const groupSchema = new Schema(
       type: String,
       required: true,
     },
-    yearAdded: {
-      type: Number,
-      required: true,
-    },
     breedId: {
       type: Schema.Types.ObjectId,
       ref: "Breed",
