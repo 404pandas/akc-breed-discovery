@@ -73,7 +73,7 @@
 
 ### Prerequisites
 
-There are no prerequisites for this app! Simply visit the deployed site [here](https://404pandas.netlify.app).
+There are no prerequisites for this app! Simply visit the deployed site [here (will be added later)](https://404pandas.netlify.app).
 
 ## Usage
 
@@ -85,16 +85,28 @@ This portfolio is optimized for smaller screens!
 
 ## Roadmap
 
+#### MVP
+
 - [ ] Back end
   - [x] Models
   - [ ] TypDefs
   - [ ] Resolvers
-  - [ ] Seeds
+  - [x] Seeds
 - [ ] Front End
-  - [ ] Styling
-  - [ ] Quiz
+  - [ ] Filtered gallery
   - [ ] Adoptable animals API
-- [ ] MVP
+  - [ ] Dashboard
+  - [ ] Notes functionality
+  - [ ] View as puppies toggle
+  - [ ] Styling
+
+#### Future Development
+
+- [ ] Back end
+  - [ ] Finish seeds
+- [ ] Front End
+  - [ ] Quiz
+  - [ ] Who's that Dog? game
 
 See the [open issues](https://github.com/404pandas/akc-breed-discovery/issues) for a full list of proposed features (and known issues).
 
