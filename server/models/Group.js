@@ -4,15 +4,12 @@ const groupSchema = new Schema(
   {
     groupName: {
       type: String,
-      required: true,
     },
     groupNumber: {
       type: Number,
-      required: true,
     },
     details: {
       type: String,
-      required: true,
     },
     breedId: {
       type: Schema.Types.ObjectId,

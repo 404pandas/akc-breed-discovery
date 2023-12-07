@@ -8,8 +8,26 @@ export const QUERY_ME = gql`
     me {
       breeds {
         _id
+        breedName
+        breedDescription
+        yearAdded
+        keywords
+        height
+        weight
+        lifeExpectancy
+        coatType
+        coatLength
+        colors
+        markings
+        breedImg
         notes {
           _id
+        }
+        group {
+          _id
+          groupName
+          groupNumber
+          details
         }
       }
     }
@@ -27,7 +45,8 @@ export const QUERY_GROUP = gql`
 // groups: [Group]
 export const QUERY_ALL_GROUPS = gql`
   {
-    breeds {
+    groups {
+
     }
   }
 `;
@@ -42,9 +61,23 @@ export const QUERY_ALL_BREEDS = gql`
 
 // breeds(group: ID): [Breed]
 export const QUERY_BREEDS = gql`
-  query getBreeds() {
-    breeds(group: $group) {
-
+  query getBreeds($groupNumber: Int) {
+    breeds(groupNumber: $groupNumber) {
+      _id
+      breedName
+      breedDescription
+      yearAdded
+      keywords
+      height
+      weight
+      lifeExpectancy
+      coatType
+      coatLength
+      colors
+      markings
+      breedImg
+      notes
+      groupNumber
     }
   }
 `;

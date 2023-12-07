@@ -1,16 +1,16 @@
 // TODO- finish building out after server and auth is functional
 const typeDefs = `
   type User {
-    _id: ID!
+    _id: ID
     username: String!
-    email: String!
+    email: String
     password: String
     savedBreeds: [Breed]
     notes: [Note]
   }
 
   type Breed {
-    _id: ID!
+    _id: ID
     breedName: String
     breedDescription: String
     yearAdded: Int
@@ -24,19 +24,19 @@ const typeDefs = `
     markings: [String]
     breedImg: String
     notes: String
-    group: Group
     groupNumber: Int
+    group: Group
   }
 
   type Group {
-    _id: ID!
+    _id: ID
     groupName: String
     groupNumber: Int
     details: String
   }
 
   type Note {
-    _id: ID!
+    _id: ID
     noteContent: String
     user: User
     breed: Breed
@@ -71,9 +71,11 @@ const typeDefs = `
   type Query {
     users: [User]
     me: User
-    group(_id: ID!): Group
+    group(groupName: String): Group
     groups: [Group]
-    breeds(group: ID): [Breed]
+    breeds(group: ID!): [Breed]
+    allBreeds: [Breed]
+    breed(_id: ID!): Breed
     notes: [Note]
     note(_id: ID!): Note
   }

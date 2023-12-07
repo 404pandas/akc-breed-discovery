@@ -29,13 +29,18 @@ const resolvers = {
     groups: async (parent, { groupId }) => {
       return Group.find().sort({ groupName: 1 });
     },
-    // Get all saved breeds
-    savedBreeds: async (parent, { userId }) => {
-      const params = userId ? { userId } : {};
+    // Get breeds by group number
+    breeds: async (parent, { groupNumber }) => {
+      const params = {};
+
+      if (groupNumber) {
+        params.groupNumber = groupNumber;
+      }
+
       return Breed.find().sort({ breedName: 1 });
     },
     // Get all breeds
-    breeds: async (parent, { breedId }) => {
+    allBreeds: async (parent, { breedId }) => {
       return Breed.find().sort({ breedName: 1 });
     },
     // Get one breed
