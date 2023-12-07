@@ -7,7 +7,7 @@ const noteSchema = new Schema(
       required: true,
     },
   },
-  // user
+  // todo- user
   {
     toJSON: {
       virtuals: true,

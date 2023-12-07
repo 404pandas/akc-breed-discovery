@@ -39,6 +39,9 @@ const breedSchema = new Schema(
     markings: {
       type: Array,
     },
+    breedImg: {
+      type: String,
+    },
     noteId: {
       type: Schema.Types.ObjectId,
       ref: "Note",
@@ -48,7 +51,7 @@ const breedSchema = new Schema(
       ref: "Group",
     },
     groupNumber: {
-      type: Schema.Types.groupNumber,
+      type: Number,
       ref: "Group",
     },
   },
