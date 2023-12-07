@@ -6,6 +6,7 @@ const typeDefs = `
     email: String!
     password: String
     savedBreeds: [Breed]
+    notes: [Note]
   }
 
   type Breed {
@@ -23,7 +24,7 @@ const typeDefs = `
     markings: [String]
     breedImg: String
     notes: String
-    group: String
+    group: Group
     groupNumber: Int
   }
 
@@ -32,13 +33,13 @@ const typeDefs = `
     groupName: String
     groupNumber: Int
     details: String
-    breedId: String
   }
 
   type Note {
     _id: ID!
     noteContent: String
     user: User
+    breed: Breed
   }
 
   type Auth {
@@ -46,20 +47,9 @@ const typeDefs = `
     user: User
   }
 
-  type Query {
-    users: [User]
-    user(userId: ID!): User
-    me: User
-    group: Group
-    groups: [Breed]
-    breeds: [Breed]
-    breed(breedId: ID!): User
-    savedBreed(breedId: ID!): Group
-    notes: [Note]
-    note(noteId: ID!): Note
-  }
 
-  input BookInput {
+
+  input BreedInput {
     _id: ID!
     breedName: String
     breedDescription: String
@@ -78,14 +68,24 @@ const typeDefs = `
     groupNumber: Int
   }
 
+  type Query {
+    users: [User]
+    me: User
+    group(_id: ID!): Group
+    groups: [Group]
+    breeds(group: ID): [Breed]
+    notes: [Note]
+    note(_id: ID!): Note
+  }
+  
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     editUser(username: String, email: String, password: String): User
     deleteUser: User
-    addNote(breed: ID!): Note
+    addNote(breed: ID!, noteContent: String!): Note
     updateNote(_id: ID!, noteContent: String!): Note
-    deleteNote(noteId: ID!): Note
+    deleteNote(_id: ID!): Note
     saveBreed(breedData: BreedInput!): User
     removeBreed(breedId: ID!): User
   }

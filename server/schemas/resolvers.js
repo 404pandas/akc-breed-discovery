@@ -11,13 +11,6 @@ const resolvers = {
       // Populates breed subdocument on every User
       return User.find().populate("breeds").select("-__v -password");
     },
-    // Get one User
-    user: async (parent, { userId }) => {
-      // Populates breed subdocument on every User
-      return User.findOne({ _id: userId })
-        .populate("breeds")
-        .select("-__v -password");
-    },
     // Get current User
     me: async (parent, args, context) => {
       // Populates breed subdocument on User dashboard
