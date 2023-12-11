@@ -31,7 +31,7 @@ const breedSchema = new Schema(
       type: Array,
     },
     coatLength: {
-      type: String,
+      type: Array,
     },
     colors: {
       type: Array,
@@ -42,10 +42,12 @@ const breedSchema = new Schema(
     breedImg: {
       type: String,
     },
-    noteId: {
-      type: Schema.Types.ObjectId,
-      ref: "Note",
-    },
+    notes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Note",
+      },
+    ],
     groupId: {
       type: Schema.Types.ObjectId,
       ref: "Group",

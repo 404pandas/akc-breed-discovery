@@ -36,33 +36,89 @@ export const QUERY_ME = gql`
 
 // group(_id: ID!): Group
 export const QUERY_GROUP = gql`
-  {
-    breeds {
+  query getGroup($groupId: ID!) {
+    group(id: $groupId) {
+      _id
+      groupName
+      groupNumber
+      details
+    }
+  }
+`;
+// breed(_id: ID!): Breed
+export const QUEERY_BREED = gql`
+  query getBreed($breedId: ID!) {
+    breed(id: $breedId) {
+      _id
+      breedName
+      breedDescription
+      yearAdded
+      keywords
+      height
+      weight
+      lifeExpectancy
+      coatType
+      coatLength
+      colors
+      markings
+      breedImg
+      notes
+      groupNumber
+      group {
+        _id
+        groupName
+        groupNumber
+        details
+      }
     }
   }
 `;
 
 // groups: [Group]
 export const QUERY_ALL_GROUPS = gql`
-  {
+  query getAllGroups {
     groups {
-
+      _id
+      groupName
+      groupNumber
+      details
     }
   }
 `;
 
 // breeds: [Breed]
 export const QUERY_ALL_BREEDS = gql`
-  {
-    breeds {
+  query getAllBreeds {
+    allBreeds {
+      _id
+      breedName
+      breedDescription
+      yearAdded
+      keywords
+      height
+      weight
+      lifeExpectancy
+      coatType
+      coatLength
+      colors
+      markings
+      breedImg
+      notes
+      groupNumber
+      group {
+        _id
+        groupName
+        groupNumber
+        details
+      }
     }
   }
 `;
 
 // breeds(group: ID): [Breed]
 export const QUERY_BREEDS = gql`
-  query getBreeds($groupNumber: Int) {
-    breeds(groupNumber: $groupNumber) {
+  query getBreeds($group: ID!) {
+    breeds(group: $group) {
       _id
       breedName
       breedDescription

@@ -6,8 +6,11 @@ const noteSchema = new Schema(
       type: String,
       required: true,
     },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
-  // todo- user
   {
     toJSON: {
       virtuals: true,

@@ -1,12 +1,14 @@
-// TODO- finish building out after server and auth is functional
+// TODO- finish building out after server and auth is functional'
+
+// breeds(group: ID!): [Breed]
+
 const typeDefs = `
   type User {
     _id: ID
     username: String!
     email: String
     password: String
-    savedBreeds: [Breed]
-    notes: [Note]
+    breed: [Breed]
   }
 
   type Breed {
@@ -23,9 +25,9 @@ const typeDefs = `
     colors: [String]
     markings: [String]
     breedImg: String
-    notes: String
     groupNumber: Int
     group: Group
+    note: Note
   }
 
   type Group {
@@ -46,8 +48,6 @@ const typeDefs = `
     token: ID!
     user: User
   }
-
-
 
   input BreedInput {
     _id: ID!
@@ -71,13 +71,13 @@ const typeDefs = `
   type Query {
     users: [User]
     me: User
-    group(groupName: String): Group
+    group(id: ID!): Group
     groups: [Group]
-    breeds(group: ID!): [Breed]
     allBreeds: [Breed]
-    breed(_id: ID!): Breed
+    breed(id: ID!): Breed
+    breeds(group: ID!): [Breed]
     notes: [Note]
-    note(_id: ID!): Note
+    note(id: ID!): Note
   }
   
   type Mutation {

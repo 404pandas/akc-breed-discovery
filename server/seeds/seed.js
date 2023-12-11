@@ -4,7 +4,7 @@ const db = require("../config/connection");
 const { User, Breed, Group, Note } = require("../models");
 
 // seeds
-const breedSeeds = require("./breedSeeds.json");
+const breedSeeds = require("./breedSeedsExtended.json");
 const groupSeeds = require("./groupSeeds.json");
 const noteSeeds = require("./noteSeeds.json");
 const userSeeds = require("./userSeeds.json");
@@ -25,18 +25,19 @@ db.once("open", async () => {
     // Create Users
     await User.create(userSeeds);
 
+    await Note.create(noteSeeds);
     // Create notes and adds to users
-    for (let i = 0; i < noteSeeds.length; i++) {
-      const { _id, noteAuthor } = await Note.create(noteSeeds[i]);
-      const user = await User.findOneAndUpdate(
-        { username: noteAuthor },
-        {
-          $addToSet: {
-            notes: _id,
-          },
-        }
-      );
-    }
+    // for (let i = 0; i < noteSeeds.length; i++) {
+    //   const { _id, noteAuthor } = await Note.create(noteSeeds[i]);
+    //   const user = await User.findOneAndUpdate(
+    //     { username: noteId },
+    //     {
+    //       $addToSet: {
+    //         notes: _id,
+    //       },
+    //     }
+    //   );
+    // }
   } catch (err) {
     console.log("An error occured:");
     console.error(err);

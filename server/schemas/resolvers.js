@@ -22,11 +22,15 @@ const resolvers = {
       throw new AuthenticationError("Error! Please log in!");
     },
     // Get single group
-    group: async (parent, { groupId }) => {
-      return Group.findOne({ _id: groupId });
+    group: async (parent, { id }) => {
+      if (id) {
+        const groupData = await Group.findOne({ _id: id });
+        return groupData;
+      }
+      throw Error;
     },
     // Get all groups
-    groups: async (parent, { groupId }) => {
+    groups: async (parent, { groupName }) => {
       return Group.find().sort({ groupName: 1 });
     },
     // Get breeds by group number
@@ -44,15 +48,19 @@ const resolvers = {
       return Breed.find().sort({ breedName: 1 });
     },
     // Get one breed
-    breed: async (parent, { breedId }) => {
-      return Breed.findOne({ _id: breedId });
+    breed: async (parent, { id }) => {
+      if (id) {
+        const breedData = await Breed.findOne({ _id: id });
+        return breedData;
+      }
+      throw Error;
     },
     // Get all notes
     notes: async (parent, { noteId }) => {
       return Note.find().sort({ noteName: 1 });
     },
     // Get single note
-    note: async (parent, { noteId }) => {
+    note: async (parent, { id }) => {
       return Note.findOne({ _id: noteId });
     },
   },
