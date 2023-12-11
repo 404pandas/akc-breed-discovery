@@ -1,6 +1,6 @@
 // Built in Auth error from apollo server express! No need to build out AuthenticationError in server/utils/auth.js
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Breed, Group, SavedBreed } = require("../models");
+const { User, Breed, Group, Note } = require("../models");
 const { signToken } = require("../utils/auth");
 const bcrypt = require("bcrypt");
 
@@ -9,15 +9,13 @@ const resolvers = {
     // Get all Users
     users: async () => {
       // Populates breed subdocument on every User
-      return User.find().populate("breeds").select("-__v -password");
+      return User.find().populate("savedBreeds").select("-__v -password");
     },
     // Get current User
     me: async (parent, args, context) => {
       // Populates breed subdocument on User dashboard
       if (context.user) {
-        return User.findOne({ _id: context.user._id })
-          .populate("breeds")
-          .select("-__v -password");
+        return User.findOne({ _id: context.user._id }).select("-__v -password");
       }
       throw new AuthenticationError("Error! Please log in!");
     },
@@ -33,18 +31,8 @@ const resolvers = {
     groups: async (parent, { groupName }) => {
       return Group.find().sort({ groupName: 1 });
     },
-    // Get breeds by group number
-    breeds: async (parent, { groupNumber }) => {
-      const params = {};
-
-      if (groupNumber) {
-        params.groupNumber = groupNumber;
-      }
-
-      return Breed.find().sort({ breedName: 1 });
-    },
     // Get all breeds
-    allBreeds: async (parent, { breedId }) => {
+    allBreeds: async (parent, { breedName }) => {
       return Breed.find().sort({ breedName: 1 });
     },
     // Get one breed
@@ -54,6 +42,16 @@ const resolvers = {
         return breedData;
       }
       throw Error;
+    },
+    // Get breeds by group number
+    breeds: async (parent, { groupId }) => {
+      const params = {};
+
+      if (groupId) {
+        params.groupId = groupId;
+      }
+
+      return Breed.find().sort({ breedName: 1 });
     },
     // Get all notes
     notes: async (parent, { noteId }) => {
@@ -130,10 +128,10 @@ const resolvers = {
     },
     // Create note
     addNote: async (parent, { notes }) => {
-      if (context.user) {
+      if (context.breed) {
         const note = new Note({ notes });
 
-        await User.findByIdAndUpdate(context.user._id, {
+        await User.findByIdAndUpdate(context.breed._id, {
           $push: { notes: note },
         });
 
@@ -143,7 +141,7 @@ const resolvers = {
     },
     // Update note
     updateNote: async (parent, { _id, quantity }) => {
-      if (context.user) {
+      if (context.breed) {
         const decrement = Math.abs(quantity) * -1;
 
         return await Note.findByIdAndUpdate(
@@ -156,17 +154,17 @@ const resolvers = {
     },
     // Delete note
     deleteNote: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOneAndDelete({ _id: context.user._id });
+      if (context.breed) {
+        return User.findOneAndDelete({ _id: context.breed._id });
       }
       throw new AuthenticationError("Error! Please login!");
     },
     // Save breed
-    saveBreed: async (parent, { breed }, context) => {
+    saveBreed: async (parent, { breedData }, context) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { savedBreeds: breed } },
+          { $push: { savedBreeds: breedData } },
           { new: true }
         );
 
@@ -176,11 +174,11 @@ const resolvers = {
       throw AuthenticationError;
     },
     // Remove saved breed
-    removeBreed: async (parent, { breedId }, context) => {
+    removeBreed: async (parent, { breedData }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { removedBreeds: { breedId } } },
+          { $pull: { savedBreeds: { breedData } } },
           { new: true }
         );
 

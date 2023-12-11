@@ -1,18 +1,18 @@
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 // todo- build out query for user
-import { QUERY_USER, QUERY_ME } from "../utils/queries";
-import { REMOVE_BREED } from "../utils/mutations";
+import { QUERY_ME } from "../../utils/queries";
+import { REMOVE_BREED } from "../../utils/mutations";
 // Todo- build out this file
-import { removedBreedId } from "../utils/localStorage";
-import Auth from "../utils/auth";
+import { removeBreedId } from "../../utils/localStorage";
+import Auth from "../../utils/auth";
 
 const Dashboard = () => {
   const [removeBreed, { error }] = useMutation(REMOVE_BREED);
 
   const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+  const { loading, data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
     variables: { username: userParam },
   });
 
@@ -45,7 +45,7 @@ const Dashboard = () => {
       });
 
       // Removed breed's ID from localStorage
-      removedBreedId(breedId);
+      removeBreedId(breedId);
     } catch (err) {
       console.error(err);
     }

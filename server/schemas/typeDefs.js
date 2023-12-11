@@ -4,11 +4,11 @@
 
 const typeDefs = `
   type User {
-    _id: ID
+    _id: ID!
     username: String!
     email: String
     password: String
-    breed: [Breed]
+    savedBreeds: [Breed]
   }
 
   type Breed {
@@ -50,7 +50,6 @@ const typeDefs = `
   }
 
   input BreedInput {
-    _id: ID!
     breedName: String
     breedDescription: String
     yearAdded: Int
@@ -63,8 +62,6 @@ const typeDefs = `
     colors: [String]
     markings: [String]
     breedImg: String
-    notes: String
-    group: String
     groupNumber: Int
   }
 
@@ -85,7 +82,7 @@ const typeDefs = `
     addUser(username: String!, email: String!, password: String!): Auth
     editUser(username: String, email: String, password: String): User
     deleteUser: User
-    addNote(breed: ID!, noteContent: String!): Note
+    addNote(breedId: ID!, noteContent: String!): Note
     updateNote(_id: ID!, noteContent: String!): Note
     deleteNote(_id: ID!): Note
     saveBreed(breedData: BreedInput!): User

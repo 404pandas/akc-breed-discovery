@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
 // breed to user then controller w/ that
+const breedSchema = require("./Breed").schema;
 
 const userSchema = new Schema(
   {
@@ -20,12 +21,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    breed: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Breed",
-      },
-    ],
+    savedBreeds: [breedSchema],
   },
   {
     toJSON: {

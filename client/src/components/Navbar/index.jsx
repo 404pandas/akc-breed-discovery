@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 // Local modules
 // Auth for if/else navbar logic
-import Auth from "../../utils/auth";
+import Auth from "../../../utils/auth";
 
 // Component css
 import "./style.css";
