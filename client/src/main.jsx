@@ -13,6 +13,7 @@ import Error from "./pages/Error";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import App from "./App.jsx";
+// import Quiz from "./pages/Quiz";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
         path: "/breeds",
         element: <Breeds />,
       },
-      {},
+      // { path: "/quiz", element: <Quiz /> },
       {
         path: "/groups/:id",
         element: <Group />,

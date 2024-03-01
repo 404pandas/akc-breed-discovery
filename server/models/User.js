@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 // breed to user then controller w/ that
 const breedSchema = require("./Breed").schema;
-
+const noteSchema = require("./Note").schema;
 const userSchema = new Schema(
   {
     username: {
@@ -22,6 +22,7 @@ const userSchema = new Schema(
       required: true,
     },
     savedBreeds: [breedSchema],
+    notes: [noteSchema],
   },
   {
     toJSON: {

@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { LOGIN } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
 const Login = (props) => {
-  const [formState, setFormState] = useState({
+  const [userFormState, setUserFormState] = useState({
     email: "",
     password: "",
   });
+
   const [login, { error }] = useMutation(LOGIN);
 
   const handleFormSubmit = async (event) => {
@@ -16,8 +17,8 @@ const Login = (props) => {
     try {
       const loginResponse = await login({
         variables: {
-          email: formState.email,
-          password: formState.password,
+          email: userFormState.email,
+          password: userFormState.password,
         },
       });
       const token = loginResponse.data.login.token;
@@ -29,8 +30,8 @@ const Login = (props) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormState({
-      ...formState,
+    setUserFormState({
+      ...userFormState,
       [name]: value,
     });
   };
@@ -38,7 +39,7 @@ const Login = (props) => {
   return (
     <div>
       <div>
-        Don't have an account? <Link to='/login'>Signup instead!</Link>
+        Don't have an account? <Link to='/signup'>Signup instead!</Link>
       </div>
       <h2>Login</h2>
       <form onSubmit={handleFormSubmit}>

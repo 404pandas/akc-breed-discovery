@@ -6,6 +6,7 @@ import { gql } from "@apollo/client";
 export const QUERY_ME = gql`
   {
     me {
+      username
       breeds {
         _id
         breedName
@@ -20,9 +21,7 @@ export const QUERY_ME = gql`
         colors
         markings
         breedImg
-        notes {
-          _id
-        }
+        groupNumber
         group {
           _id
           groupName
@@ -134,22 +133,42 @@ export const QUERY_BREEDS = gql`
       breedImg
       notes
       groupNumber
+      group {
+        _id
+        groupName
+        groupNumber
+        details
+      }
     }
   }
 `;
 
 // notes: [Note]
 export const QUERY_ALL_NOTES = gql`
-  {
-    breeds {
+  query getAllNotes {
+    notes {
+      _id
+      noteContent
+      noteAuthor
+      breed {
+        _id
+        breedName
+      }
     }
   }
 `;
 
 // note(noteId: ID!): Note
 export const QUERY_NOTE = gql`
-  {
-    breeds {
+  query getNote($noteId: ID!) {
+    note(id: $noteId) {
+      _id
+      noteContent
+      noteAuthor
+      breed {
+        _id
+        breedName
+      }
     }
   }
 `;

@@ -10,26 +10,10 @@ import Auth from "../../utils/auth";
 const Dashboard = () => {
   const [removeBreed, { error }] = useMutation(REMOVE_BREED);
 
-  const { username: userParam } = useParams();
+  const { loading, data } = useQuery(QUERY_ME);
 
-  const { loading, data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
-    variables: { username: userParam },
-  });
+  const user = data?.me || {};
 
-  const user = data?.me || data?.user || {};
-  if (
-    Auth.loggedIn() &&
-    /* Run the getProfile() method to get access to the unencrypted token value in order to retrieve the user's username, and compare it to the userParam variable */
-    Auth.getProfile().authenticatedPerson.username === userParam
-  ) {
-    return <Navigate to='/me' />;
-  }
-
-  if (!user?.username) {
-    return (
-      <h4>Profile unavailable! Use the links above to sign up or log in!</h4>
-    );
-  }
   // accepts ID as param and deletes breed from database
   const handleDeleteBreed = async (breedId) => {
     // gets token
@@ -59,22 +43,16 @@ const Dashboard = () => {
     <div>
       <p>User Info</p>
       <div>
-        <h2>{userParam ? `${user.username}` : null}</h2>
+        <h2>Good luck during your breed discovery, ${user.username}</h2>
       </div>
       <p>Saved breeds && Notes</p>
       <div>
-        <div>
-          {userData.savedBreeds?.map((breed) => {
-            return <div>{breed}</div>;
-          })}
-        </div>
-        <NoteList
-          notes={user.notes}
-          title={`Notes created for breeds`}
-          showTitle={false}
-          showUsername={false}
-        />
+        {user.savedBreeds?.map((breed) => {
+          return <div>{breed.breedName}</div>;
+        })}
       </div>
+      <p>Notes</p>
+      <div>Notes will go here when built out</div>
     </div>
   );
 };

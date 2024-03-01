@@ -11,12 +11,16 @@ import { setContext } from "@apollo/client/link/context";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
+// main graphql endpoint
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
 
+// middleware attaches to JWT token for every request as 'authorization' header
 const authLink = setContext((_, { headers }) => {
+  // gets token from local storage
   const token = localStorage.getItem("id_token");
+  // returns headers to context for httpLink to read
   return {
     headers: {
       ...headers,
@@ -26,6 +30,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
+  // sets up client to execute 'authLink' middleware prior to making request to GraphQL API
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });

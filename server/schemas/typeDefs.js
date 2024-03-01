@@ -1,14 +1,13 @@
 // TODO- finish building out after server and auth is functional'
 
-// breeds(group: ID!): [Breed]
-
 const typeDefs = `
   type User {
-    _id: ID!
-    username: String!
+    _id: ID
+    username: String
     email: String
     password: String
     savedBreeds: [Breed]
+    notes: [Note]
   }
 
   type Breed {
@@ -27,7 +26,7 @@ const typeDefs = `
     breedImg: String
     groupNumber: Int
     group: Group
-    note: Note
+    notes: [Note]
   }
 
   type Group {
@@ -40,7 +39,7 @@ const typeDefs = `
   type Note {
     _id: ID
     noteContent: String
-    user: User
+    noteAuthor: String
     breed: Breed
   }
 
@@ -49,7 +48,26 @@ const typeDefs = `
     user: User
   }
 
+  type DeleteNoteResponse {
+    success: Boolean
+    message: String
+  }
+
+  input AddNoteInput {
+    breedId: ID!
+    noteAuthor: String!
+    noteContent: String!
+  }
+
+  input UpdateNoteInput {
+    noteId: ID!
+    breedID: ID!
+    noteContent: String!
+    userId: ID!
+  }
+
   input BreedInput {
+    breedId: ID!
     breedName: String
     breedDescription: String
     yearAdded: Int
@@ -67,24 +85,23 @@ const typeDefs = `
 
   type Query {
     users: [User]
+    user(id: ID!): User
     me: User
     group(id: ID!): Group
     groups: [Group]
     allBreeds: [Breed]
     breed(id: ID!): Breed
     breeds(group: ID!): [Breed]
-    notes: [Note]
+    allNotes: [Note]
     note(id: ID!): Note
   }
   
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    editUser(username: String, email: String, password: String): User
-    deleteUser: User
-    addNote(breedId: ID!, noteContent: String!): Note
-    updateNote(_id: ID!, noteContent: String!): Note
-    deleteNote(_id: ID!): Note
+    addNote(noteData: AddNoteInput!): Note
+    updateNote(_id: ID!, breedId: ID, newNoteData: UpdateNoteInput!): Note
+    deleteNote(breedId: ID!, noteId: ID!): Note
     saveBreed(breedData: BreedInput!): User
     removeBreed(breedId: ID!): User
   }
