@@ -24,7 +24,7 @@ const Login = (props) => {
       const token = loginResponse.data.login.token;
       Auth.login(token);
     } catch (event) {
-      consolevent.log(e);
+      console.log(event);
     }
   };
 

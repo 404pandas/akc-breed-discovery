@@ -10,19 +10,23 @@ const Signup = (props) => {
     email: "",
     password: "",
   });
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const addUserResponse = await addUser({
-      variables: {
-        username: formState.username,
-        email: formState.email,
-        password: formState.password,
-      },
-    });
-    const token = addUserResponse.data.addUser.token;
-    Auth.login(token);
+    try {
+      const addUserResponse = await addUser({
+        variables: {
+          username: formState.username,
+          email: formState.email,
+          password: formState.password,
+        },
+      });
+      const token = addUserResponse.data.addUser.token;
+      Auth.login(token);
+    } catch (event) {
+      console.log(event);
+    }
   };
 
   const handleChange = (event) => {
@@ -71,6 +75,11 @@ const Signup = (props) => {
             onChange={handleChange}
           />
         </div>
+        {error ? (
+          <div>
+            <p>Error!</p>
+          </div>
+        ) : null}
         <div>
           <button type='submit'>Submit</button>
         </div>
